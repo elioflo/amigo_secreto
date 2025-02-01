@@ -1,26 +1,30 @@
-const nombres = []
 const listaDeAmigos = document.querySelector('#listaAmigos')
 const input = document.querySelector('#amigo')
+const resultado = document.querySelector('#resultado')
 
-function agregarAmigo(){
+function agregarAmigo(event){
   const nombre = input.value
-  if(validarNombre(nombre)) {
-    nombres.push(input.value)
-    const listaItem = document.createElement('li')
-    listaItem.textContent = input.value
-    listaDeAmigos.appendChild(listaItem)
-  }else{
-    alert('Ingrese un nombre valido!')
+  const apretaronEnter = event.target.nodeName === 'INPUT' && event.key === 'Enter'
+  const apretaronBoton = event.target.nodeName === 'BUTTON'
+  if(apretaronEnter || apretaronBoton) {
+    if(validarNombre(nombre.trim())) {
+      const listaItem = document.createElement('li')
+      listaItem.textContent = nombre
+      listaDeAmigos.appendChild(listaItem)
+    }else{
+      alert('Ingrese un nombre valido!')
+    }
+    input.value = ''
   }
 }
 
 function sortearAmigo() {
-  const ganador = nombres[Math.floor(Math.random()*nombres.length)]
-  const resultado = document.querySelector('#resultado')
-  resultado.innerHTML = `<li>El ganador es ${ganador}</li>`
+  const cantidad = listaDeAmigos.children.length
+  const ganador = listaDeAmigos.children[Math.floor(Math.random()*cantidad)]
+  resultado.innerHTML = `<li>El ganador es ${ganador.textContent}</li>`
 }
 
 function validarNombre(nombre) {
   const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]+$/
-  return regex.test(nombre) && !(nombre.length < 1) && !(nombre.length > 50) 
+  return regex.test(nombre) && !(nombre.length < 2) && !(nombre.length > 50) 
 }
