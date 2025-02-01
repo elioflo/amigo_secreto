@@ -1,6 +1,7 @@
 const listaDeAmigos = document.querySelector('#listaAmigos')
 const input = document.querySelector('#amigo')
 const resultado = document.querySelector('#resultado')
+const sortearBoton = document.querySelector('#sortearBoton')
 
 function agregarAmigo(event){
   const nombre = input.value
@@ -11,6 +12,7 @@ function agregarAmigo(event){
       const listaItem = document.createElement('li')
       listaItem.textContent = nombre
       listaDeAmigos.appendChild(listaItem)
+      sortearBoton.disabled = false      
     }else{
       alert('Ingrese un nombre valido!')
     }
@@ -21,6 +23,7 @@ function agregarAmigo(event){
 function reset(){
   listaDeAmigos.innerHTML = ''
   resultado.innerHTML = ''
+  sortearBoton.disabled = true
 }
 
 function sortearAmigo() {
