@@ -16,7 +16,7 @@
 }
 
 body {
-    height: 100vh;
+    min-height: 100vh;
     background-color: var(--color-primary);
     display: flex;
     justify-content: center;
@@ -88,8 +88,10 @@ body {
 }
 
 .button-container {
-    width: 300px;
+    display: grid;
     justify-content: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
 }
 
 /* Estilos de entrada de texto */
@@ -146,6 +148,7 @@ ul {
 .button-draw {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 100%;
     padding: 10px 40px;
     color: var(--color-white);

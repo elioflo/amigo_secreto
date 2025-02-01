@@ -18,6 +18,11 @@ function agregarAmigo(event){
   }
 }
 
+function reset(){
+  listaDeAmigos.innerHTML = ''
+  resultado.innerHTML = ''
+}
+
 function sortearAmigo() {
   const cantidad = listaDeAmigos.children.length
   const ganador = listaDeAmigos.children[Math.floor(Math.random()*cantidad)]
