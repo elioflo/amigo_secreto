@@ -33,7 +33,9 @@
             onkeypress="agregarAmigo(event)"
             placeholder="Escribe un nombre"
           />
-          <button class="button-add" onclick="agregarAmigo(event)">Añadir</button>
+          <button class="button-add" onclick="agregarAmigo(event)">
+            Añadir
+          </button>
         </div>
 
         <ul
@@ -51,7 +53,7 @@
             onclick="sortearAmigo()"
             aria-label="Sortear amigo secreto"
             disabled
-            >
+          >
             <img
               src="assets/play_circle_outline.png"
               alt="Ícono para sortear"
@@ -59,12 +61,14 @@
             Sortear amigo
           </button>
           <button
-          class="button-draw"
-          onclick="reset()"
-          aria-label="Sortear amigo secreto"
-        >
-          Reset
-        </button>
+            id="resetBoton"
+            class="button-draw"
+            onclick="reset()"
+            aria-label="Sortear amigo secreto"
+            disabled
+          >
+            Reset
+          </button>
         </div>
       </section>
     </main>

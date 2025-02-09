@@ -2,6 +2,7 @@ const listaDeAmigos = document.querySelector('#listaAmigos')
 const input = document.querySelector('#amigo')
 const resultado = document.querySelector('#resultado')
 const sortearBoton = document.querySelector('#sortearBoton')
+const resetBoton = document.querySelector('#resetBoton')
 
 function agregarAmigo(event){
   const nombre = input.value
@@ -9,10 +10,10 @@ function agregarAmigo(event){
   const apretaronBoton = event.target.nodeName === 'BUTTON'
   if(apretaronEnter || apretaronBoton) {
     if(validarNombre(nombre.trim())) {
-      const listaItem = document.createElement('li')
-      listaItem.textContent = nombre
+      const listaItem = crearItem(nombre)
       listaDeAmigos.appendChild(listaItem)
-      sortearBoton.disabled = false      
+      sortearBoton.disabled = false
+      resetBoton.disabled = false      
     }else{
       alert('Ingrese un nombre valido!')
     }
@@ -20,16 +21,39 @@ function agregarAmigo(event){
   }
 }
 
+function habilitarSorteo(){
+  sortearBoton.disabled = !Array.from(listaDeAmigos.children).some(item => item.querySelector('input').checked)
+}
+
+function crearItem(nombre) {
+  const item = document.createElement('li')
+  const input = document.createElement('input')
+  input.type = 'checkbox'
+  input.name = 'nombre'
+  input.value = `${listaDeAmigos.childElementCount+1} ${nombre}`
+  input.checked = true
+  input.addEventListener('change', habilitarSorteo)
+  const label = document.createElement('label')
+  label.htmlFor = 'nombre'
+  label.innerHTML = `<span>${listaDeAmigos.childElementCount+1}</span> ${nombre}`
+  item.append(input, label)
+  return item
+}
+
 function reset(){
   listaDeAmigos.innerHTML = ''
   resultado.innerHTML = ''
   sortearBoton.disabled = true
+  resetBoton.disabled = true
 }
 
 function sortearAmigo() {
-  const cantidad = listaDeAmigos.children.length
-  const ganador = listaDeAmigos.children[Math.floor(Math.random()*cantidad)]
+  const habilitados = Array.from(listaDeAmigos.children).filter(item => item.querySelector('input').checked)
+  const cantidad = habilitados.length
+  const ganador = habilitados[Math.floor(Math.random()*cantidad)]
   resultado.innerHTML = `<li>El ganador es ${ganador.textContent}</li>`
+  ganador.querySelector('input').checked = false
+  habilitarSorteo()
 }
 
 function validarNombre(nombre) {
