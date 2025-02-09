@@ -30,11 +30,12 @@ function crearItem(nombre) {
   const input = document.createElement('input')
   input.type = 'checkbox'
   input.name = 'nombre'
+  input.id = listaDeAmigos.childElementCount+1
   input.value = `${listaDeAmigos.childElementCount+1} ${nombre}`
   input.checked = true
   input.addEventListener('change', habilitarSorteo)
   const label = document.createElement('label')
-  label.htmlFor = 'nombre'
+  label.htmlFor = input.id
   label.innerHTML = `<span>${listaDeAmigos.childElementCount+1}</span> ${nombre}`
   item.append(input, label)
   return item
